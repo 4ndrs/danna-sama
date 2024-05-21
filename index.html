@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+  <head>
+    <title>💖 Danna-sama 💖</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-image: url("fenris.jpg");
+      }
+
+      #fenris {
+        top: 50%;
+        width: 100%;
+        position: fixed;
+        transform: translateY(-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <video loop autoplay playsinline src="fenris.mp4" id="fenris" />
+
+    <script>
+      const video = document.getElementById("fenris");
+
+      let singleClickTimeoutId = null;
+
+      video.addEventListener("click", (event) => {
+        if (event.detail === 2) {
+          clearTimeout(singleClickTimeoutId);
+          singleClickTimeoutId = null;
+
+          toggleFullscreen();
+          return;
+        }
+
+        singleClickTimeoutId = setTimeout(() => {
+          singleClickTimeoutId = null;
+
+          togglePlay();
+        }, 250);
+      });
+
+      const togglePlay = () => {
+        if (video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      };
+
+      const toggleFullscreen = async () => {
+        if (!document.fullscreenElement) {
+          try {
+            await document.documentElement.requestFullscreen();
+          } catch (error) {
+            console.error("Awawawa, unable to enter fullscreen mode >﹏<");
+          }
+        } else {
+          document.exitFullscreen();
+        }
+      };
+    </script>
+  </body>
+</html>
